@@ -9,13 +9,22 @@ import React from "react";
 
 // TODO: 계산결과를 redux를 이용한 전역상태로 관리해 보세요.
 function App() {
+  const [inputValue, setInputValue] = useState(0);
   const counter = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
-  const [inputValue, setInputValue] = useState(0);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    console.log(e.target.value);
+  };
+
+  const handleIncrement = () => {
+    dispatch(incrementByAmount(parseInt(inputValue, 10)));
+    setInputValue(0);
+  };
+
+  const handleDecrement = () => {
+    dispatch(decrementByAmount(parseInt(inputValue, 10)));
+    setInputValue(0);
   };
 
   return (
@@ -24,8 +33,8 @@ function App() {
       <div>
         <input type="number" value={inputValue} onChange={handleInputChange} />{" "}
         만큼을
-        <button onClick={() => dispatch(incrementByAmount())}>더할게요</button>
-        <button onClick={() => dispatch(decrementByAmount())}>뺄게요</button>
+        <button onClick={handleIncrement}>더할게요</button>
+        <button onClick={handleDecrement}>뺄게요</button>
       </div>
       <hr />
       <div>
